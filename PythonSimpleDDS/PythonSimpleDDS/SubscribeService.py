@@ -5,20 +5,21 @@ class SubscribeService:
         self.mServer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.host = ''
         self.port = 5555
-        #need a better method to do this
         self.mDDSFilter = aDDSFilter
-
     def testFilter(self, what):
-        self.mDDSFilterList[0].getSubscribers(what)
+        print(self.mDDSFilter.getSubscribers(what))
     def hostSubscribeService(self):
         self.mServer.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.mServer.bind((host, port))
+        self.mServer.bind((self.host, self.port))
         self.startListening()
     def startListening(self):
-        message, address = self.mServer.recvfrom(8192)
-        messageSendFromClient = message.decode("utf-8")
-        messageParts = messageSendFromClient.split(',')
-        if(messageParts):
-            if(messageParts[0] == "Subscribe"):
-                if(messageParts[1]):
-                    pass
+        while 1:
+            message, address = self.mServer.recvfrom(8192)
+            messageSendFromClient = message.decode("utf-8")
+            messageParts = messageSendFromClient.split(',')
+            stripedMessageParts =  [item.strip() for item in messageParts]
+            if(stripedMessageParts):
+                if(stripedMessageParts[0] == "subscribe"):
+                    if(stripedMessageParts[1]):                                                
+                        self.mDDSFilter.addSubscriber(stripedMessageParts[1], address)
+                        print(self.mDDSFilter.getSubscribers(stripedMessageParts[1]))
