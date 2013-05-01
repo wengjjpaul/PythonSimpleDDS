@@ -1,3 +1,5 @@
-This is a simple publisher and subscriber module create with python.
+This is a simple publisher and subscriber module create with python. The communications protocol is using UDP.
 
-The communications protocol is using UDP.
+Things to do:
+1) Server module
+2) Client module
