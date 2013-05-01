@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+
+<DDS>
+  <ServerInformation>
+    <ServerPort>5555</ServerPort>
+    <ServerIPV4>111</ServerIPV4>
+  </ServerInformation>
+</DDS>

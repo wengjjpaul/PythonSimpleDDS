@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonSimpleDDS", "PythonSimpleDDS\PythonSimpleDDS.pyproj", "{C445F57A-05CA-40A3-9AF5-238C579C40BD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{477AC318-072B-479A-91D2-35DA51D508F6}"
+	ProjectSection(SolutionItems) = preProject
+		PythonSimpleDDS\DDSConfigFile.xml = PythonSimpleDDS\DDSConfigFile.xml
+		..\README = ..\README
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

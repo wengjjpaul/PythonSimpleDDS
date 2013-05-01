@@ -22,7 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Filter.py" />
     <Compile Include="PythonSimpleDDS.py" />
+    <Compile Include="SubscribeService.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
