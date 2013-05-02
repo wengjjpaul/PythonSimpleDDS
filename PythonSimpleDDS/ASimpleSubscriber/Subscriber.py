@@ -38,7 +38,7 @@ class Subscriber:
             message, address = self.mListeningSocket.recvfrom(8192)
             messageSendFromService = message.decode("utf-8")
             self.mFunction(messageSendFromService)
-    def unSubscribeTo(self):
+    def unSubscribe(self):
         if(self.mAlreadySubscribed == True):
             if self.mThread.isAlive():
                 try:
