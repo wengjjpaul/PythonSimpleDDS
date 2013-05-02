@@ -10,10 +10,13 @@ class Subscriber:
         self.mAlreadySubscribed = False
         self.mThread = threading.Thread(target=_SubscribedThreadFunction, args = (,))
         self.mListeningSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.mTopic = None
     def subscribeTo(self, aTopic, aFunctionBindTo):
         """FunctionBindTo require a parameter to accept incoming data"""
         if(self.mAlreadySubscribed == False):
             self.mFunction = aFunctionBindTo
+            self.mTopic = aTopic
+            
             tMESSAGE = "subscribe" + aTopic
             tMessageInBytes = bytes(tMESSAGE, 'UTF-8')
             self.mSock.sendto(tMessageInBytes, (self.mSubscriberServiceIPV4, self.mSubscriberServicePort))
@@ -35,13 +38,18 @@ class Subscriber:
             message, address = self.mListeningSocket.recvfrom(8192)
             messageSendFromService = message.decode("utf-8")
             self.mFunction(messageSendFromService)
-    def unSubscribeTo(self, aTopic):
+    def unSubscribeTo(self):
         if(self.mAlreadySubscribed == True):
             if self.mThread.isAlive():
                 try:
                     self.mThread._stop()
+                    self.mAlreadySubscribed = False
+                    self.mFunction = None
+                    self.mTopic = None
                 except:
                     pass
             return True
         else:
             return False
+    def getTopic(self):
+        return self.mTopic
