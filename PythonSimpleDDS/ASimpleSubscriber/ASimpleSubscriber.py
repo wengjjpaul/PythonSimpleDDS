@@ -1,13 +1,20 @@
 import socket
 import time
+import Subscriber
+import xml.etree.ElementTree as ET
 
-UDP_IP = "127.0.0.1"
-UDP_PORT = 5555
-MESSAGE = "subscribe, hello"
-a = bytes(MESSAGE, 'UTF-8')
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+def onDataAvailableTopicOne(aData):
+    print(aData)
+
+tree = ET.parse('DDSConfigFile.xml')
+SubscriberHostIPV4 = tree.find("ServerInformation").find("SubscriberHostIPV4").text
+SubscriberHostPort = int(tree.find("ServerInformation").find("SubscriberHostPort").text)
+
+firstSubscriber = Subscriber.Subscriber(SubscriberHostIPV4, SubscriberHostPort)
+firstSubscriber.subscribeTo("topicOne", onDataAvailableTopicOne)
+print(firstSubscriber.getTopic)
+
 while 1:
+    pass
 
-    sock.sendto(a, (UDP_IP, UDP_PORT))
-    time.sleep(1)
-     
+print("End of program")
