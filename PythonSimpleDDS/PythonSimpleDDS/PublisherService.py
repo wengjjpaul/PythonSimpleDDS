@@ -1,10 +1,10 @@
 import socket
 import threading
 class PublisherService:
-    def __init__(self, aDDSFilter):
+    def __init__(self, aDDSFilter, aHostIPV4, aHostPort):
         self.mServer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.host = ''
-        self.port = 5556
+        self.host = aHostIPV4
+        self.port = aHostPort
         self.mDDSFilter = aDDSFilter
     def HostPublisherService(self):
         self.mServer.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
