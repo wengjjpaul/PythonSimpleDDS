@@ -1,5 +1,30 @@
 This is a simple publisher and subscriber module create with python. The communications protocol is using UDP.
 
-Things to do:
-1) Server module
-2) Client module
+There are 3 folders:
+1) PythonSimpleDDS - The server
+2) ASimpleSubscriber - A subscriber
+3) ASimplePublisher - A publisher
+
+To use:
+Step 1: Run the server
+Step 2: Run the subscriber and publisher (Order does not matter)
+
+Example of Server is located in PythonSimpleDDS/PythonSimpleDDS.py
+Example of Publisher is located in ASimplePublisher/ASimplePublisher.py
+Example of Subscriber is located in ASimpleSubscriber/ASimpleSubscriber.py
+
+To use Server, you need the following .py files:
+1) PyPubSub.py
+2) PublisherService.py
+3) SubscribeService.py
+4) Filter.py
+
+To use Publisher, you need the following .py files:
+1) Publisher.py
+
+To use Subscriber, you need the following .py files:
+1) Subscriber.py
+
+Note:
+Server have to be on before initialising subscriber or publisher.
+The examples provided uses xml configuration files to read the server's ipv4 and port. You can hard code the ipv4 and port if you like.
