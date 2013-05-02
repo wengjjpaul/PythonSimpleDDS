@@ -46,7 +46,10 @@ class Subscriber:
                     self.mThread._stop()
                     self.mAlreadySubscribed = False
                     self.mFunction = None
+                    tMESSAGE = "unsubscribe, " + self.mTopic
                     self.mTopic = None
+                    tMessageInBytes = bytes(tMESSAGE, 'UTF-8')
+                    self.mListeningSocket.sendto(tMessageInBytes, (self.mSubscriberServiceIPV4, self.mSubscriberServicePort))
                 except:
                     pass
             return True
