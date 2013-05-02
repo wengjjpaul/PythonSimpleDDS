@@ -23,6 +23,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Filter.py" />
+    <Compile Include="PublisherService.py" />
+    <Compile Include="PyPubSub.py" />
     <Compile Include="PythonSimpleDDS.py" />
     <Compile Include="SubscribeService.py" />
   </ItemGroup>

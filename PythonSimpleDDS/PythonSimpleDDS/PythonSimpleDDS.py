@@ -1,7 +1,7 @@
 import PyPubSub
 import xml.etree.ElementTree as ET
 import threading
-
+import time
 def subscriberService(service):
     service.hostSubscribeService()
 
@@ -16,7 +16,8 @@ PubSubService.startSubscriberHostService()
 PubSubService.startPublisherHostService()
 
 while 1:
-    pass
+    time.sleep(1)
+    print(PubSubService.mMainFilter.getSubscribers("topicOne"))
 
 print("End of Code")
 

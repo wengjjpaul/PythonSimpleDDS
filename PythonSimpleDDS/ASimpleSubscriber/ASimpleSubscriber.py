@@ -1,8 +1,7 @@
 import socket
 import time
-import Subscriber
 import xml.etree.ElementTree as ET
-
+import Subscriber
 def onDataAvailableTopicOne(aData):
     print(aData)
 
@@ -12,7 +11,7 @@ SubscriberHostPort = int(tree.find("ServerInformation").find("SubscriberHostPort
 
 firstSubscriber = Subscriber.Subscriber(SubscriberHostIPV4, SubscriberHostPort)
 firstSubscriber.subscribeTo("topicOne", onDataAvailableTopicOne)
-print(firstSubscriber.getTopic)
+print(firstSubscriber.getTopic())
 
 while 1:
     pass

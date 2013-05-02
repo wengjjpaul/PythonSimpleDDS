@@ -6,9 +6,10 @@ class Subscriber:
         self.mSubscriberServicePort = aSubscriberServicePort
         self.mFunction = None
         self.mSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.mSock.connect((self.mSubscriberServiceIPV4, self.mSubscriberServicePort))
         self.mListeningPort = self.mSock.getsockname()[1]
         self.mAlreadySubscribed = False
-        self.mThread = threading.Thread(target=_SubscribedThreadFunction, args = (,))
+        self.mThread = threading.Thread(target=self._SubscribedThreadFunction, args = ())
         self.mListeningSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.mTopic = None
     def subscribeTo(self, aTopic, aFunctionBindTo):
@@ -17,11 +18,11 @@ class Subscriber:
             self.mFunction = aFunctionBindTo
             self.mTopic = aTopic
             
-            tMESSAGE = "subscribe" + aTopic
+            tMESSAGE = "subscribe, " + aTopic
             tMessageInBytes = bytes(tMESSAGE, 'UTF-8')
             self.mSock.sendto(tMessageInBytes, (self.mSubscriberServiceIPV4, self.mSubscriberServicePort))
             self.mAlreadySubscribed = True
-            
+            self.mSock.close()
             self.mListeningSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             self.mListeningSocket.bind(('', self.mListeningPort))
             #wont keep the thread up if main thread die

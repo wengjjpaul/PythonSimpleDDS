@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+
+<DDS>
+  <ServerInformation>
+    <SubscriberHostPort>5555</SubscriberHostPort>
+    <SubscriberHostIPV4>127.0.0.1</SubscriberHostIPV4>
+    <PublisherHostPort>5556</PublisherHostPort>
+    <PublisherHostIPV4>192.168.2.254</PublisherHostIPV4>
+  </ServerInformation>
+</DDS>

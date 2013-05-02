@@ -1,3 +1,4 @@
+import socket
 class Publisher:
     def __init__(self, aPublisherServiceIPV4, aPublisherServicePort):
         self.mPublisherServiceIPV4 = aPublisherServiceIPV4
@@ -6,7 +7,7 @@ class Publisher:
     def setTopic(self, aTopic):
         self.mTopic = aTopic
     def publishOnce(self, aData):
-        if(self.mTopic = None):
+        if(self.mTopic == None):
             return False
         else:
             mServer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

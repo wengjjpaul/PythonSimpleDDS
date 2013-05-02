@@ -8,7 +8,7 @@ class PublisherService:
         self.mDDSFilter = aDDSFilter
     def HostPublisherService(self):
         self.mServer.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.mServer.bind((self.host, self.port))
+        self.mServer.bind(('', self.port))
         self._startListening()
     def _startListening(self):
         while 1:
@@ -26,7 +26,7 @@ class PublisherService:
                         messageToSend = ",".join(messageParts)
                         messageToSend.strip()
                         tSubscriberListForThisTopic = self.mDDSFilter.getSubscribers(tTopic)
-                        t = threading.Thread(target=_publish, args = (self.mServer, messageToSend, tSubscriberListForThisTopic))
+                        t = threading.Thread(target=self._publish, args = (self.mServer, messageToSend, tSubscriberListForThisTopic))
                         #wont keep the thread up if main thread die
                         t.daemon = True
                         try:
