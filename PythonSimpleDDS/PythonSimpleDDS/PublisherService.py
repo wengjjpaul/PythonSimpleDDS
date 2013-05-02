@@ -29,7 +29,10 @@ class SubscribeService:
                         t = threading.Thread(target=publish, args = (self.mServer, messageToSend, tSubscriberListForThisTopic))
                         #wont keep the thread up if main thread die
                         t.daemon = True
-                        t.start()
+                        try:
+                            t.start()
+                        except: #catch all errors
+                            pass
                 else:
                     pass
     def publish(self, aServer, aMessage, aSubscriberList):
