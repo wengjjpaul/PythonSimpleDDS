@@ -1,7 +1,7 @@
 import socket
 
 class SubscribeService:
-    def __init__(self, aDDSFilter, aHostAddress, aHostPort):
+    def __init__(self, aDDSFilter, aHostIPV4, aHostPort):
         self.mServer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.host = aHostAddress
         self.port = aHostPort
