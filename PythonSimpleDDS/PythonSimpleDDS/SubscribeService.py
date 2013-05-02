@@ -22,4 +22,8 @@ class SubscribeService:
                 if(stripedMessageParts[0] == "subscribe"):
                     if(stripedMessageParts[1]):                                                
                         self.mDDSFilter.addSubscriber(stripedMessageParts[1], address)
-                        print(self.mDDSFilter.getSubscribers(stripedMessageParts[1]))
+                elif(stripedMessageParts[0] == "unsubscribe"):
+                    if(stripedMessageParts[1]):
+                        self.mDDSFilter.removeSubscriber(stripedMessageParts[1], address)
+                else:
+                    pass
