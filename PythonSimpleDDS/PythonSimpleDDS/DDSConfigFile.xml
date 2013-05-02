@@ -4,7 +4,7 @@
   <ServerInformation>
     <SubscriberHostPort>5555</SubscriberHostPort>
     <SubscriberHostIPV4></SubscriberHostIPV4>
-    <SubscriberHostPort>5556</SubscriberHostPort>
+    <PublisherHostPort>5556</PublisherHostPort>
     <PublisherHostIPV4></PublisherHostIPV4>
   </ServerInformation>
 </DDS>
