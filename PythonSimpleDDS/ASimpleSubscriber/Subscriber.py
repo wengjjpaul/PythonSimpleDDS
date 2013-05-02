@@ -31,4 +31,7 @@ class Subscriber:
         else:
             return False
     def _SubscribedThreadFunction(self):
-        message, address = self.mServer.recvfrom(8192)
+        while 1:
+            message, address = self.mListeningSocket.recvfrom(8192)
+            messageSendFromService = message.decode("utf-8")
+            self.mFunction(messageSendFromService)
