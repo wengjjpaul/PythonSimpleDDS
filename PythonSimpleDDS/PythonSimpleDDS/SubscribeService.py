@@ -1,10 +1,10 @@
 import socket
 
 class SubscribeService:
-    def __init__(self, aDDSFilter):
+    def __init__(self, aDDSFilter, aHostAddress, aHostPort):
         self.mServer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.host = ''
-        self.port = 5555
+        self.host = aHostAddress
+        self.port = aHostPort
         self.mDDSFilter = aDDSFilter
     def testFilter(self, what):
         print(self.mDDSFilter.getSubscribers(what))
