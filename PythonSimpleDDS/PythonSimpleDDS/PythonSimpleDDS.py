@@ -1,5 +1,4 @@
-import Filter
-import SubscribeService
+import PyPubSub
 import xml.etree.ElementTree as ET
 import threading
 
@@ -10,20 +9,17 @@ tree = ET.parse('DDSConfigFile.xml')
 tree = tree.find("ServerInformation").find("ServerIPV4")
 print(tree.text)
 
-newFilter = Filter.Filter()
-subscriber = ("192.168.1.1", 5555)
-newFilter.addSubscriber("hello", subscriber)
+SubscriberHostIPV4 = ''
+SubscriberHostPort = 5555
+PublisherHostIPV4 = ''
+PublisherHostPort = 5556
 
-newsub = SubscribeService.SubscribeService(newFilter)
-t = threading.Thread(target=subscriberService, args = (newsub,))
-#wont keep the thread up if main thread die
-t.daemon = True
-t.start()
+PubSubService = PyPubSub.PyPubSub(SubscriberHostIPV4, SubscriberHostPort, PublisherHostIPV4, PublisherHostPort)
+PubSubService.startSubscriberHostService()
+PubSubService.startPublisherHostService()
 
-subscriber = ("192.168.1.2", 5555)
-newFilter.addSubscriber("hello", subscriber)
-newsub.testFilter("hello")
 while 1:
     pass
-print("aa")
+
+print("End of Code")
 
