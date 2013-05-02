@@ -9,8 +9,8 @@ class PublisherService:
     def HostPublisherService(self):
         self.mServer.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.mServer.bind((self.host, self.port))
-        self.startListening()
-    def startListening(self):
+        self._startListening()
+    def _startListening(self):
         while 1:
             message, address = self.mServer.recvfrom(8192)
             messageSendFromClient = message.decode("utf-8")
@@ -26,7 +26,7 @@ class PublisherService:
                         messageToSend = ",".join(messageParts)
                         messageToSend.strip()
                         tSubscriberListForThisTopic = self.mDDSFilter.getSubscribers(tTopic)
-                        t = threading.Thread(target=publish, args = (self.mServer, messageToSend, tSubscriberListForThisTopic))
+                        t = threading.Thread(target=_publish, args = (self.mServer, messageToSend, tSubscriberListForThisTopic))
                         #wont keep the thread up if main thread die
                         t.daemon = True
                         try:
@@ -35,7 +35,7 @@ class PublisherService:
                             pass
                 else:
                     pass
-    def publish(self, aServer, aMessage, aSubscriberList):
+    def _publish(self, aServer, aMessage, aSubscriberList):
         tMessageInBytes = bytes(aMessage, 'UTF-8')
         if(aSubscriberList):
             for tSubscriber in aSubscriberList:
