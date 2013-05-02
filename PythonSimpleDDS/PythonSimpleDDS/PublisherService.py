@@ -1,6 +1,6 @@
 import socket
 import threading
-class SubscribeService:
+class PublisherService:
     def __init__(self, aDDSFilter):
         self.mServer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.host = ''
