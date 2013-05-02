@@ -28,3 +28,5 @@ To use Subscriber, you need the following .py files:
 Note:
 Server have to be on before initialising subscriber or publisher.
 The examples provided uses xml configuration files to read the server's ipv4 and port. You can hard code the ipv4 and port if you like.
+
+See wiki for library APIs
