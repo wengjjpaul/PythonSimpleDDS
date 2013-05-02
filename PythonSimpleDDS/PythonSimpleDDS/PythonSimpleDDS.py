@@ -6,13 +6,10 @@ def subscriberService(service):
     service.hostSubscribeService()
 
 tree = ET.parse('DDSConfigFile.xml')
-tree = tree.find("ServerInformation").find("ServerIPV4")
-print(tree.text)
-
-SubscriberHostIPV4 = ''
-SubscriberHostPort = 5555
-PublisherHostIPV4 = ''
-PublisherHostPort = 5556
+SubscriberHostIPV4 = tree.find("ServerInformation").find("SubscriberHostIPV4").text
+SubscriberHostPort = int(tree.find("ServerInformation").find("SubscriberHostPort").text)
+PublisherHostIPV4 = tree.find("ServerInformation").find("PublisherHostIPV4").text
+PublisherHostPort = int(tree.find("ServerInformation").find("PublisherHostPort").text)
 
 PubSubService = PyPubSub.PyPubSub(SubscriberHostIPV4, SubscriberHostPort, PublisherHostIPV4, PublisherHostPort)
 PubSubService.startSubscriberHostService()
