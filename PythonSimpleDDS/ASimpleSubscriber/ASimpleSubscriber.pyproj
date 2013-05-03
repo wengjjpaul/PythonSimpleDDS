@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{35feac2a-6874-4a80-a78b-48944a34f2f5}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>ASimpleSubscriber.py</StartupFile>
+    <StartupFile>ASimpleSubscriberUI.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ASimpleSubscriber.py" />
+    <Compile Include="ASimpleSubscriberUI.py" />
     <Compile Include="Subscriber.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
