@@ -31,8 +31,11 @@ class PublisherService:
                         #Get subscriber list for current topic
                         tSubscriberListForThisTopic = self.mDDSFilter.getSubscribers(tTopic)
 <<<<<<< HEAD
+<<<<<<< HEAD
                         t = threading.Thread(target=self._publish, args = (self.mServer, messageToSend, tSubscriberListForThisTopic))
 =======
+=======
+>>>>>>> 76dff2824c2130a2b57b24ad469fea286f49c6bd
                         #Begin thread to publish to all subscribers
                         t = threading.Thread(target=_publish, args = (self.mServer, messageToSend, tSubscriberListForThisTopic))
 >>>>>>> 76dff2824c2130a2b57b24ad469fea286f49c6bd
