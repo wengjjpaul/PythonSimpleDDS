@@ -34,4 +34,4 @@ Note: <br />
 Server have to be on before initialising subscriber or publisher. <br />
 The examples provided uses xml configuration files to read the server's ipv4 and port. You can hard code the ipv4 and port if you like. <br />
 
-[See wiki for library APIs]("https://github.com/wengjjpaul/PythonSimpleDDS/wiki") <br />
+[See wiki for library APIs](https://github.com/wengjjpaul/PythonSimpleDDS/wiki/) <br />
