@@ -17,3 +17,13 @@ class Filter:
             if(aSubscriberEndPoint in self.mSubscribersList[aTopicName]):
                 #remove the subscriber from the list
                 self.mSubscribersList[aTopicName].remove(aSubscriberEndPoint)
+        #here we want to remove topics that have 0 subscribers
+        deleted = []
+        for topics in self.mSubscribersList:
+            if self.mSubscribersList[topics] == []:
+                deleted.append(topics)
+        for topics in deleted:
+            del self.mSubscribersList[topics]
+    def getTopics(self):
+        listOfTopics = list(self.mSubscribersList.keys())
+        return listOfTopics

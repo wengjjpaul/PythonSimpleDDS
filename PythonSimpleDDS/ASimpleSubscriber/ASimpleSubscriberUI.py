@@ -8,13 +8,6 @@ from pyqtsubscriber import Ui_PyQtSubscriber
 import sys
 import threading
 
-#test
-import signal, os
-
-def onDataAvailableTopicOne(aData):
-    print(aData)
-def exit_handler():
-    firstSubscriber.unSubscribe()
 
 #==========================================UI CLASS==========================================#
 class StartQt4(QtGui.QMainWindow):
@@ -25,17 +18,30 @@ class StartQt4(QtGui.QMainWindow):
         self.ui = Ui_PyQtSubscriber()
         self.ui.setupUi(self)
 
-        #initialise objects
-        self.mText = self.ui.textBrowser
+        ###initialise objects
+        #Text used to display current topic data
+        self.mText = self.ui.textBrowserForCurrentTopic
         self.mText.append("Hello")
-
-        #Variable to store subscriber
-        self.mSubscriber = MySubscriber()
-        
-        #signal
-        
-        UIthread1 = threading.Thread(target=self.mSubscriber.thread_Operator)
-        UIthread1.start()
+        #Listview to show all available topics (To do)
+        self.mListView = self.ui.listViewOfTopics
+        #Push button to select topic to display
+        self.mButton = self.ui.pushButton
+        self.connect(self.mButton, QtCore.SIGNAL("clicked()"), self.updateTopic)
+        #textEdit to input topic
+        self.mInputTopic = self.ui.textEdit
+        self.mSubscriberThread = None
+#update topic function
+    def updateTopic(self):
+        if(self.mSubscriberThread):
+            self.mSubscriberThread.clearUp()
+        self.mSubscriberThread = SubscriberThread()
+        self.connect(self.mSubscriberThread, QtCore.SIGNAL("printToText(QString)"), self.edit_Text)
+        self.connect(self.mSubscriberThread, QtCore.SIGNAL("updateTopicList(QString)"), self.updateTopicList)
+        self.mSubscriberThread.subscribeTo(self.mInputTopic.toPlainText())
+        self.mSubscriberThread.start()
+#update topic view list
+    def updateTopicList(self):
+        pass
 #edit text function
     def edit_Text(self, aString):
         self.mText.clear()
@@ -43,53 +49,47 @@ class StartQt4(QtGui.QMainWindow):
 
 #Shutdown function
     def closeEvent(self, event):
+        self.mSubscriberThread.clearUp()
+        #Need a better way to kill thread
+        self.mSubscriberThread = SubscriberThread()
         pass
-    #register Subscriber
-    def registerSubscriber(self, aSubscriber):
-        self.mSubscriber = aSubscriber
-
-    #test
-    def testText():
-        self.edit_Text("AAA")
-
 #==========================================UI CLASS==========================================#
-#==========================================Subscriber Class==================================#
-class MySubscriber():
+#===================================UI Thread for Subscriber=================================#
+class SubscriberThread(QtCore.QThread):
     def __init__(self):
-        
-        pass
-    def thread_Operator(self):
+        QtCore.QThread.__init__(self)
+        self.tree = ET.parse('DDSConfigFile.xml')
+        self.SubscriberHostIPV4 = self.tree.find("ServerInformation").find("SubscriberHostIPV4").text
+        self.SubscriberHostPort = int(self.tree.find("ServerInformation").find("SubscriberHostPort").text)
+        self.firstSubscriber = Subscriber.Subscriber(self.SubscriberHostIPV4, self.SubscriberHostPort)
+        self.mTopic = None
+    def subscribeTo(self, aTopic):
+        self.mTopic = aTopic
+        self.firstSubscriber.subscribeTo(aTopic, self.onDataAvailableTopicOne)
+    def onDataAvailableTopicOne(self, aData):
+        self.emit(QtCore.SIGNAL("printToText(QString)"), aData)
+    def run(self):
         while 1:
-            signal.alarm(1)
             time.sleep(2)
-
-#Begin Main Code here
-if __name__ == "__main__":
+    def clearUp(self):
+        if (not (self.mTopic == None)):
+            self.mTopic = None
+            self.firstSubscriber.unSubscribe()
+            return
+#===================================UI Thread for Subscriber=================================#
+def startUI():
     applicationBase = QtGui.QApplication(sys.argv)
     ASimpleSubscriberApp = StartQt4()
     ASimpleSubscriberApp.move(300, 300)
     ASimpleSubscriberApp.setWindowTitle('ASimpleSubscriber') 
-
-    #Create Subscriber and give Subscriber access to UI application for displaying
-    UISubscriber = MySubscriber(ASimpleSubscriberApp)
-    #Register subscriber to allow UI to use subscriber methods
-    ASimpleSubscriberApp.registerSubscriber(UISubscriber)
-
-    #use thread to start subscriber
-    
     
     ASimpleSubscriberApp.show()
-    sys.exit(applicationBase.exec_())    
+    sys.exit(applicationBase.exec_())
 
-    tree = ET.parse('DDSConfigFile.xml')
-    SubscriberHostIPV4 = tree.find("ServerInformation").find("SubscriberHostIPV4").text
-    SubscriberHostPort = int(tree.find("ServerInformation").find("SubscriberHostPort").text)
-
-    firstSubscriber = Subscriber.Subscriber(SubscriberHostIPV4, SubscriberHostPort)
-    firstSubscriber.subscribeTo("topicOne", onDataAvailableTopicOne)
-
-    atexit.register(exit_handler)
-    print(firstSubscriber.getTopic())
+#Begin Main Code here
+if __name__ == "__main__":
+    t = threading.Thread(target = startUI)
+    t.start()
 
     while 1:
         time.sleep(1)

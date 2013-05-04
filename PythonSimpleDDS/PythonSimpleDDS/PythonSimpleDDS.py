@@ -17,7 +17,7 @@ PubSubService.startPublisherHostService()
 
 while 1:
     time.sleep(1)
-    print(PubSubService.mMainFilter.getSubscribers("topicOne"))
+    print(PubSubService.mMainFilter.getTopics())
 
 print("End of Code")
 

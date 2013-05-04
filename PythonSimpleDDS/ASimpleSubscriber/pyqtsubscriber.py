@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'pyqtsubscriber.ui'
 #
-# Created: Fri May  3 19:45:42 2013
+# Created: Sat May  4 12:18:33 2013
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -29,9 +29,19 @@ class Ui_PyQtSubscriber(object):
         PyQtSubscriber.resize(400, 300)
         self.centralWidget = QtGui.QWidget(PyQtSubscriber)
         self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
-        self.textBrowser = QtGui.QTextBrowser(self.centralWidget)
-        self.textBrowser.setGeometry(QtCore.QRect(40, 30, 301, 71))
-        self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
+        self.textBrowserForCurrentTopic = QtGui.QTextBrowser(self.centralWidget)
+        self.textBrowserForCurrentTopic.setGeometry(QtCore.QRect(50, 130, 301, 71))
+        self.textBrowserForCurrentTopic.setOverwriteMode(True)
+        self.textBrowserForCurrentTopic.setObjectName(_fromUtf8("textBrowserForCurrentTopic"))
+        self.listViewOfTopics = QtGui.QListWidget(self.centralWidget)
+        self.listViewOfTopics.setGeometry(QtCore.QRect(50, 60, 301, 51))
+        self.listViewOfTopics.setObjectName(_fromUtf8("listViewOfTopics"))
+        self.textEdit = QtGui.QTextEdit(self.centralWidget)
+        self.textEdit.setGeometry(QtCore.QRect(160, 10, 191, 31))
+        self.textEdit.setObjectName(_fromUtf8("textEdit"))
+        self.pushButton = QtGui.QPushButton(self.centralWidget)
+        self.pushButton.setGeometry(QtCore.QRect(50, 10, 91, 31))
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
         PyQtSubscriber.setCentralWidget(self.centralWidget)
         self.menuBar = QtGui.QMenuBar(PyQtSubscriber)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 400, 21))
@@ -49,4 +59,5 @@ class Ui_PyQtSubscriber(object):
 
     def retranslateUi(self, PyQtSubscriber):
         PyQtSubscriber.setWindowTitle(_translate("PyQtSubscriber", "PyQtSubscriber", None))
+        self.pushButton.setText(_translate("PyQtSubscriber", "PushButton", None))
 

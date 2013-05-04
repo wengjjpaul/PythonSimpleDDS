@@ -24,9 +24,9 @@ class PublisherService:
                         messageParts = messageParts[2:]
                         #Make a comma separated string from list
                         messageToSend = ",".join(messageParts)
-                        messageToSend.strip()
+                        stripedMessage = messageToSend.strip()
                         tSubscriberListForThisTopic = self.mDDSFilter.getSubscribers(tTopic)
-                        t = threading.Thread(target=self._publish, args = (self.mServer, messageToSend, tSubscriberListForThisTopic))
+                        t = threading.Thread(target=self._publish, args = (self.mServer, stripedMessage, tSubscriberListForThisTopic))
                         #wont keep the thread up if main thread die
                         t.daemon = True
                         try:
